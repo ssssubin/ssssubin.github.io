@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>class 실습</title>
+  </head>
+  <body>
+    <script>
+      class Circle {
+        constructor(radius) {
+          this.radius = radius;
+        }
+
+        getDiameter() {
+          return this.radius * 2;
+        }
+
+        getPerimeter() {
+          return 2 * Math.PI * this.radius;
+        }
+
+        getArea() {
+          return Math.PI * this.radius ** 2;
+        }
+      }
+      class Cylinder extends Circle {
+        constructor(radius, height) {
+          super(radius);
+          this.height = height;
+        }
+
+        getArea() {
+          return this.height * super.getPerimeter() + 2 * super.getArea();
+        }
+      }
+      const circle1 = new Circle(10);
+      const circle2 = new Circle(20);
+      const cylinder = new Cylinder(5, 10);
+      console.log(circle1.radius);
+      console.log(circle1.getDiameter());
+      console.log(circle2.getDiameter());
+      console.log(cylinder.getArea());
+    </script>
+  </body>
+</html>
