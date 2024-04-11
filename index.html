@@ -25,6 +25,7 @@
       txt.addEventListener("focus", test3);
       txt.removeEventListener("focus", test3); */
 
+      /*//class 실습
       class Circle {
         constructor(radius) {
           this.radius = radius;
@@ -58,7 +59,74 @@
       console.log(circle1.radius);
       console.log(circle1.getDiameter());
       console.log(circle2.getDiameter());
-      console.log(cylinder.getArea());
+      console.log(cylinder.getArea());*/
+
+      /*//프로미스 실습
+      const promiseTimeout = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log("1s timeout");
+          resolve("1s after");
+        }, 1000);
+      });
+
+      promiseTimeout
+        .then((data) => {
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              console.log(`${data} 2s timeout`);
+              resolve();
+            }, 1000);
+          });
+        })
+        .then(() => {
+          return new Promise((resolve, reject) => {
+            setTimeout(() => {
+              console.log("3s timeout");
+              resolve();
+            }, 1000);
+          });
+        });
+*/
+
+      const result = Promise.all([
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("first");
+          }, 1000);
+        }),
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("second");
+          }, 2000);
+        }),
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("third");
+          }, 3000);
+        }),
+      ]).then((data) => {
+        console.log(`${data} all`);
+      });
+
+      const result1 = Promise.race([
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("first");
+          }, 1000);
+        }),
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("second");
+          }, 2000);
+        }),
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("third");
+          }, 3000);
+        }),
+      ]).then((data) => {
+        console.log(`${data} race`);
+      });
     </script>
   </body>
 </html>
