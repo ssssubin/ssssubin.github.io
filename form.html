@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form 실습</title>
+  </head>
+  <body>
+    <h1>Hello Form</h1>
+    <form action="http://localhost:3000/submit" method="post">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" />
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" />
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        fetch("http://localhost:3000/submit", {
+          //fetch자체가 promise 값 -> promise로 감싸져있기 때문에 then으로 한 번 풀어줘야 함
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: form.elements[0].value,
+            password: form.elements[1].value,
+          }),
+        })
+          .then((res) => {
+            //res는 promise 값
+            return res.text();
+          })
+          .then((text) => {
+            console.log(text);
+          });
+      });
+    </script>
+  </body>
+</html>
